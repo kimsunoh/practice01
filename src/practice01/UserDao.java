@@ -6,8 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class UserDao {
+public class UserDao {
 
+	private ConnectionMaker ConnectionMaker;
+	
+	public	UserDao(){
+		this.ConnectionMaker = new DConnectionMaker();
+	}
 	public User get(String id) throws ClassNotFoundException, SQLException {
 		// 사용자는 어디에 저장되어 있는 거지?
 		// DataBase를 사용해 보자
@@ -15,7 +20,7 @@ public abstract class UserDao {
 		// MySql을 사용해 보자
 
 		// Connect를 맺고
-		Connection connetction = getConnection();
+		Connection connetction = ConnectionMaker.getConnection();
 		// 쿼리를 만들어서
 		PreparedStatement preparedStatement = connetction
 				.prepareStatement("select * from userinfo where id = ?");
@@ -47,7 +52,7 @@ public abstract class UserDao {
 		// 어떤 DataBase를 사용할까?
 		// MySql을 사용해 보자
 
-		Connection connetction = getConnection();
+		Connection connetction = ConnectionMaker.getConnection();
 		// 쿼리를 만들어서
 		PreparedStatement preparedStatement = connetction
 				.prepareStatement("insert into userinfo(id,name,password) value(?,?,?)");
@@ -63,5 +68,4 @@ public abstract class UserDao {
 		connetction.close();
 	}
 
-	public abstract Connection getConnection() throws ClassNotFoundException,SQLException;
 }

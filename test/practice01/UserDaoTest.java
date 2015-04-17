@@ -10,7 +10,7 @@ import org.junit.Test;
 public class UserDaoTest {
 	@Test
 	public void get() throws ClassNotFoundException, SQLException {
-		UserDao userDao = new DUserDao();
+		UserDao userDao = new UserDao();
 		String id = "1";
 		User user = userDao.get(id);
 		assertEquals("1", user.getId());
@@ -26,7 +26,7 @@ public class UserDaoTest {
 		user.setId(id);
 		user.setName(name);
 		user.setPassword(password);
-		UserDao userDao = new DUserDao();
+		UserDao userDao = new UserDao();
 		userDao.add(user);
 		User addedUser = userDao.get(id);
 		assertEquals(id, addedUser.getId());
